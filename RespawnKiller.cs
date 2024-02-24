@@ -15,9 +15,15 @@ public partial class RespawnKiller : BasePlugin, IPluginConfig<RespawnKillerConf
     public override string ModuleAuthor => "exd0001";
     public override string ModuleDescription => "Let you set custom timers for respawning in each map or set it to auto-detect.";
 
+    public RespawnKillerConfig Config { get; set; } = new();
+
+    public static bool canRespawn = false;
+
+    public static double respawnEndTime = 0.0;
+
+
     public static double[] lastDeathTime = new double[Server.MaxPlayers];
 
-    public RespawnKillerConfig Config { get; set; } = new();
 
     public void OnConfigParsed(RespawnKillerConfig config)
 	{

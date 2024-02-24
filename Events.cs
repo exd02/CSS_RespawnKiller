@@ -4,6 +4,10 @@ using CounterStrikeSharp.API.Core.Attributes;
 using CounterStrikeSharp.API.Core.Attributes.Registration;
 using CounterStrikeSharp.API.Modules.Admin;
 using CounterStrikeSharp.API.Modules.Commands;
+using CounterStrikeSharp.API.Modules.Timers;
+
+using CounterStrikeSharp.API.Modules.Memory;
+
 
 namespace RespawnKiller;
 
@@ -12,42 +16,31 @@ public partial class RespawnKiller
 	public void InitializeEventHandles()
     {
         RegisterEventHandler<EventPlayerDeath>(OnPlayerDeath,HookMode.Post);
-        RegisterEventHandler<EventPlayerSpawn>(OnPlayerSpawn);
     }
 
     HookResult OnPlayerDeath(EventPlayerDeath @event, GameEventInfo info)
     {
+        if (!canRespawn) return HookResult.Continue;
+
         CCSPlayerController? player = @event.Userid;
-        
+
+        if (player == null) return HookResult.Continue;
         
         double thisDeathTime = Server.EngineTime;
-
-#if DEBUG
-        Server.PrintToConsole($"[RespawnKiller] Player in the slot { player.Slot } dead, ThisDeathTime: { thisDeathTime }, LastDealthTime: { lastDeathTime[player.Slot] }!");
-#endif
-
-        if (thisDeathTime - lastDeathTime[player.Slot] < 5 && Config.AutoDetection)
-        {
-            Server.PrintToChatAll($"[RespawnKiller] Auto Respawn Kill Detection has been activated!");
-            Server.ExecuteCommand($"mp_respawn_on_death_ct false");
-            Server.ExecuteCommand($"mp_respawn_on_death_t false");
-        }
-
+        double timeAlive = thisDeathTime - lastDeathTime[player.Slot];
         lastDeathTime[player.Slot] = thisDeathTime;
 
-        return HookResult.Continue;
-    }
-
-    HookResult OnPlayerSpawn(EventPlayerSpawn @event, GameEventInfo info)
-    {
-        CCSPlayerController? player = @event.Userid;
-        
-        if (!player.IsValid)
+        if (timeAlive < 5 && Config.AutoDetection)
         {
-            return HookResult.Continue;
+            Server.PrintToChatAll($"[RespawnKiller] Auto Respawn Kill Detection has been activated!");
+            canRespawn = false;
         }
-
-        Server.PrintToConsole($"[RespawnKiller] Player in the slot { player.Slot } respawned");
+        
+        if (canRespawn)
+        {
+            Server.PrintToConsole($"[RespawnKiller] Respawn active, spawning player \"{player.PlayerName}\" in {Config.TimeDeadScreen} seconds!");
+            AddTimer(Config.TimeDeadScreen, () => { Respawn(player); }, TimerFlags.STOP_ON_MAPCHANGE);
+        }
 
         return HookResult.Continue;
     }
@@ -61,7 +54,7 @@ public partial class RespawnKiller
         {
             return HookResult.Continue;
         }
-        
+
 #if DEBUG
 		Server.PrintToConsole($"[RespawnKiller] Player in the slot { player.Slot } has disconnected, cleaning lastDeathTime for the Slot.");
 #endif
@@ -73,14 +66,25 @@ public partial class RespawnKiller
     [GameEventHandler(HookMode.Pre)]
     public HookResult OnEventRoundStartPre(EventRoundStart @event, GameEventInfo info)
     {
+        // Change the respawn variables back to normal
+        Server.PrintToConsole($"[RespawnKiller] Round Starting, turning on respawn...");
+        canRespawn = true;
 
-#if DEBUG
-		Server.PrintToConsole($"[RespawnKiller] The round has started, changing respawn variables back to enabled.");
-#endif
-
-        Server.ExecuteCommand($"mp_respawn_on_death_ct true");
-        Server.ExecuteCommand($"mp_respawn_on_death_t true");
+        // Create a timer to set the respawn variable to false
+        if (Config.RespawnTime > 0)
+        {
+            // 'Timer' is an ambiguous reference between 'CounterStrikeSharp.API.Modules.Timers.Timer' and 'System.Threading.Timer'
+            CounterStrikeSharp.API.Modules.Timers.Timer timerToDisableRespawn = AddTimer(Config.RespawnTime, () => {
+                Server.PrintToConsole($"[RespawnKiller] {Config.RespawnTime} seconds has passed since round Start. Turning Off Respawn...");
+                canRespawn = false;
+            }, TimerFlags.STOP_ON_MAPCHANGE);
+        }
 
         return HookResult.Continue;
+    }
+
+    public void Respawn(CCSPlayerController player)
+    {
+        VirtualFunction.CreateVoid<CCSPlayerController>(player.Handle, GameData.GetOffset("CCSPlayerController_Respawn"))(player);
     }
 }
