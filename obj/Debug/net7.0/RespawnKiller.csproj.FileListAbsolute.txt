@@ -1,0 +1,12 @@
+C:\dev\CSS\Plugins\RespawnKiller\bin\Debug\net7.0\RespawnKiller.deps.json
+C:\dev\CSS\Plugins\RespawnKiller\bin\Debug\net7.0\RespawnKiller.dll
+C:\dev\CSS\Plugins\RespawnKiller\bin\Debug\net7.0\RespawnKiller.pdb
+C:\dev\CSS\Plugins\RespawnKiller\obj\Debug\net7.0\RespawnKiller.csproj.AssemblyReference.cache
+C:\dev\CSS\Plugins\RespawnKiller\obj\Debug\net7.0\RespawnKiller.GeneratedMSBuildEditorConfig.editorconfig
+C:\dev\CSS\Plugins\RespawnKiller\obj\Debug\net7.0\RespawnKiller.AssemblyInfoInputs.cache
+C:\dev\CSS\Plugins\RespawnKiller\obj\Debug\net7.0\RespawnKiller.AssemblyInfo.cs
+C:\dev\CSS\Plugins\RespawnKiller\obj\Debug\net7.0\RespawnKiller.csproj.CoreCompileInputs.cache
+C:\dev\CSS\Plugins\RespawnKiller\obj\Debug\net7.0\RespawnKiller.dll
+C:\dev\CSS\Plugins\RespawnKiller\obj\Debug\net7.0\refint\RespawnKiller.dll
+C:\dev\CSS\Plugins\RespawnKiller\obj\Debug\net7.0\RespawnKiller.pdb
+C:\dev\CSS\Plugins\RespawnKiller\obj\Debug\net7.0\ref\RespawnKiller.dll
