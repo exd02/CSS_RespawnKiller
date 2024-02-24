@@ -28,7 +28,7 @@ public partial class RespawnKiller
         Server.PrintToConsole($"[RespawnKiller] Respawn time in the current map ({ Server.MapName }) has been set to { respawnTime } seconds.");
     }
 
-    [ConsoleCommand("css_setmapautodetect", "Enable/Disable Auto-Detection for respawn kill.")]
+    [ConsoleCommand("css_autodetectrespawnkill", "Enable/Disable Auto-Detection for respawn kill.")]
     [CommandHelper(minArgs: 1, usage: "[0/1]", whoCanExecute: CommandUsage.CLIENT_AND_SERVER)]
     [RequiresPermissions("@css/cvar")]
     public void OnSetMapAutoDetectCommand(CCSPlayerController? player, CommandInfo commandInfo)
