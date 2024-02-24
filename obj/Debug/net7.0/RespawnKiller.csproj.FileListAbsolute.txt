@@ -10,3 +10,4 @@ C:\dev\CSS\Plugins\RespawnKiller\obj\Debug\net7.0\RespawnKiller.dll
 C:\dev\CSS\Plugins\RespawnKiller\obj\Debug\net7.0\refint\RespawnKiller.dll
 C:\dev\CSS\Plugins\RespawnKiller\obj\Debug\net7.0\RespawnKiller.pdb
 C:\dev\CSS\Plugins\RespawnKiller\obj\Debug\net7.0\ref\RespawnKiller.dll
+C:\dev\CSS\Plugins\RespawnKiller\obj\Debug\net7.0\RespawnKiller.sourcelink.json

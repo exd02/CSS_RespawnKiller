@@ -26,7 +26,7 @@ public partial class RespawnKiller
         Server.PrintToConsole($"[RespawnKiller] Player in the slot { player.Slot } dead, ThisDeathTime: { thisDeathTime }, LastDealthTime: { lastDeathTime[player.Slot] }!");
 #endif
 
-        if (thisDeathTime - lastDeathTime[player.Slot] < 5 && autoDetectRespawnKill)
+        if (thisDeathTime - lastDeathTime[player.Slot] < 5 && Config.AutoDetection)
         {
             Server.PrintToChatAll($"[RespawnKiller] Auto Respawn Kill Detection has been activated!");
             Server.ExecuteCommand($"mp_respawn_on_death_ct false");
@@ -42,7 +42,7 @@ public partial class RespawnKiller
     {
         CCSPlayerController? player = @event.Userid;
         
-        if (!player.IsValid || !player.IsPlatform)
+        if (!player.IsValid)
         {
             return HookResult.Continue;
         }
@@ -57,6 +57,11 @@ public partial class RespawnKiller
 	{
         CCSPlayerController? player = @event.Userid;
 
+        if (!player.IsValid)
+        {
+            return HookResult.Continue;
+        }
+        
 #if DEBUG
 		Server.PrintToConsole($"[RespawnKiller] Player in the slot { player.Slot } has disconnected, cleaning lastDeathTime for the Slot.");
 #endif

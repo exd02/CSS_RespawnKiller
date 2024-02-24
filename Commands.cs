@@ -22,10 +22,12 @@ public partial class RespawnKiller
             return;
         }
 
-        if (player != null)
-            player.PrintToChat($"[RespawnKiller] Respawn time in the current map ({ Server.MapName }) has been set to { respawnTime } seconds.");
+        Config.RespawnTime = respawnTime;
 
-        Server.PrintToConsole($"[RespawnKiller] Respawn time in the current map ({ Server.MapName }) has been set to { respawnTime } seconds.");
+        if (player != null)
+            player.PrintToChat($"[RespawnKiller] Respawn time in the current map ({ Server.MapName }) has been set to { Config.RespawnTime } seconds.");
+
+        Server.PrintToConsole($"[RespawnKiller] Respawn time in the current map ({ Server.MapName }) has been set to { Config.RespawnTime } seconds.");
     }
 
     [ConsoleCommand("css_autodetectrespawnkill", "Enable/Disable Auto-Detection for respawn kill.")]
@@ -40,11 +42,10 @@ public partial class RespawnKiller
             return;
         }
 
-        bool autoDetect = autoDetectArg != 0;
-
+        Config.AutoDetection = autoDetectArg != 0;
         if (player != null)
-            player.PrintToChat($"[RespawnKiller] Respawn auto-detection for the map ({ Server.MapName }) has been set to { (autoDetect ? "true" : "false") } .");
+            player.PrintToChat($"[RespawnKiller] Respawn auto-detection for the map ({ Server.MapName }) has been set to { (Config.AutoDetection ? "true" : "false") }.");
         
-        Server.PrintToConsole($"[RespawnKiller] Respawn auto-detection for the map ({ Server.MapName }) has been set to { (autoDetect ? "true" : "false") } .");
+        Server.PrintToConsole($"[RespawnKiller] Respawn auto-detection for the map ({ Server.MapName }) has been set to { (Config.AutoDetection ? "true" : "false") }.");
     }
 }
