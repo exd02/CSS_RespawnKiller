@@ -33,8 +33,9 @@
 <section>
     <h2>To-Do</h2>
     <ul>
-        <li><input type="checkbox" checked> RespawnKill Auto-Detection</li>
-        <li><input type="checkbox"> Timer to disable Respawn</li>
-        <li><input type="checkbox"> Create a .json list with mapnames and their respawntime</li>
+        <li>[x] RespawnKill Auto-Detection</li>
+        <li>[x] Timer to disable Respawn</li>
+        <li>[x] Create a .json list with mapnames and their info</li>
+        <li>[ ] Create a function that checks for the round end conditions</li>
     </ul>
 </section>
