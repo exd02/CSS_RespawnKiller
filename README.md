@@ -92,5 +92,6 @@
         <li>[x] Create a .json list with mapnames and their info</li>
         <li>[x] Create a function that checks for the round end conditions when a player die (end the round if the respawn time has ended and everyone is dead *except the replaybot*)</li>
         <li>[ ] Test in a live server with bunch of ppl to search for problems</li>
+        <li>[ ] Go to every course map in the workshop and make a .json for them</li>
     </ul>
 </section>
