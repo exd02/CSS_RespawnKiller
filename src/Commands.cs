@@ -21,8 +21,9 @@ public partial class RespawnKiller
         }
 
         respawnTime = respawnTimeArg;
-        
-        PrintColored($"Respawn Time for the map ({ Server.MapName }) has been set to { respawnTime } seconds..", player);
+
+        PrintColored($"Respawn Time for the map ({ Server.MapName }) has been set to { respawnTime } seconds. Turning Respawn-Kill Auto-Detection Off.", player);
+        autoDetectRespawnKill = false;
         SaveMapConfig(autoDetectRespawnKill, respawnTime);
     }
 
