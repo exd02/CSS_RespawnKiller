@@ -6,6 +6,15 @@
 </section>
 
 <section>
+    <h2>Dependencies</h2>
+    <ul>
+        <li><a href="https://cs2.poggu.me/metamod/installation/">MetaMod</a></li>
+        <li><a href="https://github.com/roflmuffin/CounterStrikeSharp/releases">CounterStrikeSharp</a>(tested with v172)</li>
+        <li><a href="https://github.com/DEAFPS/SharpTimer/tree/main">SharpTimer</a> (OPTIONAL for timer zone!)</li>
+    </ul>
+</section>
+
+<section>
     <h2>Commands</h2>
     <table>
         <thead>
