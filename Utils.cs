@@ -38,11 +38,11 @@ public partial class RespawnKiller
 
     private void ResetVars()
     {
-        for (int i = 0; i < lastDeathTime.Length; i++)
+        for (int i = 0; i < maxPlayers; i++)
         {
             lastDeathTime[i] = 0.0;
         }
-
+        
         bExecMapCfg = false;
         autoDetectRespawnKill = true;
         respawnTime = 0.0f;

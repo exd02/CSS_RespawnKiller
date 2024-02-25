@@ -16,8 +16,13 @@ public partial class RespawnKiller
 
     private void OnMapStart(string mapName)
     {
-        PrintColored($"MapStarted, cleaning variables...");
-        ResetVars(); 
+        Server.NextFrame(() =>
+        {
+            AddTimer(5.0f, () => {
+                PrintColored($"MapStarted, cleaning variables...");
+                ResetVars(); 
+            });
+        });
     }
 
     HookResult OnPlayerDeath(EventPlayerDeath @event, GameEventInfo info)
@@ -79,7 +84,7 @@ public partial class RespawnKiller
                 bExecMapCfg = true;
             }
         }
-        
+
         // Change the respawn variable back to on
         canRespawn = true;
 
