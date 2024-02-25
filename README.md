@@ -2,7 +2,7 @@
 
 <section>
     <h2>Description</h2>
-    <p>This is a plugin for Minigame (mg) Course made with <a href="https://docs.cssharp.dev/index.html">CounterStrikeSharp</a>. This plugin can auto-detect when the RespawnKill is active in CS2 course maps. This plugin is a kind of port of <a href="https://forums.alliedmods.net/showthread.php?p=2374048">Franc1sco Auto-Respawn for CS:GO</a>. There's still too much to do, you should not use this plugin yet!</p>
+    <p>This is a plugin for Minigame (mg) Course made with <a href="https://docs.cssharp.dev/index.html">CounterStrikeSharp</a>. This plugin can auto-detect when the RespawnKill is active in CS2 course maps. This plugin is a kind of port of <a href="https://forums.alliedmods.net/showthread.php?p=2374048">Franc1sco Auto-Respawn for CS:GO</a>. This plugin needs test with multiple players, I've only tested in my LocalServer. If you test or use this leave me a feedback!</p>
 </section>
 
 <section>
