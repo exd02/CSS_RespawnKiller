@@ -20,6 +20,9 @@ public partial class RespawnKiller
         Server.NextFrame(() =>
         {
             // TODO: exec commands for the map name here, add delay 1s to execute
+            // example: acrophobia 60 seconds, auto detect 0
+
+            PrintColored($"MapStarted, cleaning lastDeathTime...");
 
             // reset the last death time var
             for (int i = 0; i < lastDeathTime.Length; i++)
@@ -43,13 +46,15 @@ public partial class RespawnKiller
 
         if (timeAlive < 5 && Config.AutoDetection)
         {
-            Server.PrintToChatAll($"{ Config.ChatPrefix } Auto Respawn Kill Detection has been activated!");
+            PrintColoredAll($"Auto Respawn Kill Detection has been activated!");
             canRespawn = false;
         }
 
         if (canRespawn)
         {
-            Server.PrintToConsole($"{ Config.ChatPrefix } Respawn active, spawning player \"{ player.PlayerName }\" in {Config.TimeDeadScreen} seconds!");
+            if (Config.DebugMessages)
+                PrintColored($"Respawn active, spawning player \"{ player.PlayerName }\" in {Config.TimeDeadScreen} seconds!", player);
+            
             AddTimer(Config.TimeDeadScreen, () => { Respawn(player); }, TimerFlags.STOP_ON_MAPCHANGE);
         }
 
@@ -66,9 +71,9 @@ public partial class RespawnKiller
             return HookResult.Continue;
         }
 
-#if DEBUG
-		Server.PrintToConsole($"{ Config.ChatPrefix } Player in the slot { player.Slot } has disconnected, cleaning lastDeathTime for the Slot.");
-#endif
+        if (Config.DebugMessages)
+            PrintColored($"Player \"{ player.PlayerName }\" (slot { player.Slot }) has disconnected, setting lastDeathTime[{ player.Slot }] = 0.");
+
         lastDeathTime[player.Slot] = 0.0;
 
         return HookResult.Continue;
@@ -85,7 +90,7 @@ public partial class RespawnKiller
         {
             // 'Timer' is an ambiguous reference between 'CounterStrikeSharp.API.Modules.Timers.Timer' and 'System.Threading.Timer'
             CounterStrikeSharp.API.Modules.Timers.Timer timerToDisableRespawn = AddTimer(Config.RespawnTime, () => {
-                Server.PrintToConsole($"{ Config.ChatPrefix } {Config.RespawnTime} seconds has been passed since round Start. Turning Off Respawn...");
+                PrintColoredAll($"{Config.RespawnTime} seconds has been passed since round start, turning off respawn.");
                 canRespawn = false;
             }, TimerFlags.STOP_ON_MAPCHANGE);
         }
@@ -93,16 +98,4 @@ public partial class RespawnKiller
         return HookResult.Continue;
     }
 
-    private void Respawn(CCSPlayerController? player)
-    {
-        if (player == null) return;
-
-        if (player.PawnIsAlive)
-        {
-            Server.PrintToConsole($"{ Config.ChatPrefix } It's not possible to revive the player \"{ player.PlayerName }\", he's already alive.");
-            return;
-        }
-
-        VirtualFunction.CreateVoid<CCSPlayerController>(player.Handle, GameData.GetOffset("CCSPlayerController_Respawn"))(player);
-    }
 }

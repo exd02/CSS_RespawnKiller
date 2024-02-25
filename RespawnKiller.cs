@@ -20,12 +20,9 @@ public partial class RespawnKiller : BasePlugin, IPluginConfig<RespawnKillerConf
 	{
         Config = config;
     }
-
-
+    
     public override void Load(bool hotReload)
     {
         InitializeEvents();
     }
-
-
 }
