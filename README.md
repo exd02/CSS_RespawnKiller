@@ -95,3 +95,8 @@
         <li>[ ] Go to every course map in the workshop and make a .json for them</li>
     </ul>
 </section>
+
+<section>
+    <h2>Contact</h2>
+    <p>Join the <a href="https://discord.gg/eAZU3guKWU">CounterStrikeSharp Discord</a> and talk with me in my <a href="https://discord.com/channels/1160907911501991946/1211185159878082580">Plugin Post</a></p>
+</section>
