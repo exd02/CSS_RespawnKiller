@@ -41,7 +41,8 @@ public partial class RespawnKiller
 
         autoDetectRespawnKill = autoDetectArg != 0;
 
-        PrintColored($"Auto-detection to respawn-kill for the map ({ Server.MapName }) has been set to { autoDetectRespawnKill }.", player);
+        PrintColored($"Auto-Detection to Respawn-Kill for the map ({ Server.MapName }) has been set to { autoDetectRespawnKill }. Disabling RespawnTime.", player);
+        respawnTime = 0;
         SaveMapConfig(autoDetectRespawnKill, respawnTime);
     }
 }
