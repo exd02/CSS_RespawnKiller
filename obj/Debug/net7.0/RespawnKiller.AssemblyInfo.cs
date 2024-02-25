@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RespawnKiller")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+07a584426dcf22bc97245c22cfd82b0a352553b6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2d6a856a24df6556a798425b3bc4ed49c960c9cd")]
 [assembly: System.Reflection.AssemblyProductAttribute("RespawnKiller")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RespawnKiller")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

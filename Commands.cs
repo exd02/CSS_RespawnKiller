@@ -17,16 +17,16 @@ public partial class RespawnKiller
         int respawnTime;
         if(!int.TryParse(commandInfo.GetArg(1), out respawnTime))
         {
-            Server.PrintToConsole($"[RespawnKiller] Incorrect Usage.");
+            Server.PrintToConsole($"{ Config.ChatPrefix } Incorrect Usage.");
             return;
         }
 
         Config.RespawnTime = respawnTime;
 
         if (player != null)
-            player.PrintToChat($"[RespawnKiller] Respawn time in the current map ({ Server.MapName }) has been set to { Config.RespawnTime } seconds.");
+            player.PrintToChat($"{ Config.ChatPrefix } Respawn time in the current map ({ Server.MapName }) has been set to { Config.RespawnTime } seconds.");
 
-        Server.PrintToConsole($"[RespawnKiller] Respawn time in the current map ({ Server.MapName }) has been set to { Config.RespawnTime } seconds.");
+        Server.PrintToConsole($"{ Config.ChatPrefix } Respawn time in the current map ({ Server.MapName }) has been set to { Config.RespawnTime } seconds.");
     }
 
     [ConsoleCommand("css_autodetectrespawnkill", "Enable/Disable Auto-Detection for respawn kill.")]
@@ -37,14 +37,14 @@ public partial class RespawnKiller
         int autoDetectArg;
         if(!int.TryParse(commandInfo.GetArg(1), out autoDetectArg))
         {
-            Server.PrintToConsole($"[RespawnKiller] Incorrect Usage.");
+            Server.PrintToConsole($"{ Config.ChatPrefix } Incorrect Usage.");
             return;
         }
 
         Config.AutoDetection = autoDetectArg != 0;
         if (player != null)
-            player.PrintToChat($"[RespawnKiller] Respawn auto-detection for the map ({ Server.MapName }) has been set to { (Config.AutoDetection ? "true" : "false") }.");
+            player.PrintToChat($"{ Config.ChatPrefix } Respawn auto-detection for the map ({ Server.MapName }) has been set to { (Config.AutoDetection ? "true" : "false") }.");
         
-        Server.PrintToConsole($"[RespawnKiller] Respawn auto-detection for the map ({ Server.MapName }) has been set to { (Config.AutoDetection ? "true" : "false") }.");
+        Server.PrintToConsole($"{ Config.ChatPrefix } Respawn auto-detection for the map ({ Server.MapName }) has been set to { (Config.AutoDetection ? "true" : "false") }.");
     }
 }
