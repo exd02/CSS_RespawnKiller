@@ -13,13 +13,15 @@ public partial class RespawnKiller
     [RequiresPermissions("@css/cvar")]
     public void OnSetMapRespawnTimeCommand(CCSPlayerController? player, CommandInfo commandInfo)
     {
-        int respawnTime;
-        if(!int.TryParse(commandInfo.GetArg(1), out respawnTime))
+        int respawnTimeArg;
+        if(!int.TryParse(commandInfo.GetArg(1), out respawnTimeArg))
         {
             PrintColored($"Incorrect Usage.", player);
             return;
         }
 
+        respawnTime = respawnTimeArg;
+        
         PrintColored($"Respawn Time for the map ({ Server.MapName }) has been set to { respawnTime } seconds..", player);
         SaveMapConfig(autoDetectRespawnKill, respawnTime);
     }
@@ -36,9 +38,9 @@ public partial class RespawnKiller
             return;
         }
 
-        bool bAutoDetect = autoDetectArg != 0;
+        autoDetectRespawnKill = autoDetectArg != 0;
 
-        PrintColored($"Auto-detection to respawn-kill for the map ({ Server.MapName }) has been set to { bAutoDetect }.", player);
-        SaveMapConfig(bAutoDetect, respawnTime);
+        PrintColored($"Auto-detection to respawn-kill for the map ({ Server.MapName }) has been set to { autoDetectRespawnKill }.", player);
+        SaveMapConfig(autoDetectRespawnKill, respawnTime);
     }
 }

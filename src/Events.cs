@@ -123,8 +123,7 @@ public partial class RespawnKiller
         // Create a timer to set the respawn variable to false
         if (respawnTime > 0.0)
         {
-            // 'Timer' is an ambiguous reference between 'CounterStrikeSharp.API.Modules.Timers.Timer' and 'System.Threading.Timer'
-            CounterStrikeSharp.API.Modules.Timers.Timer timerToDisableRespawn = AddTimer(respawnTime, () => {
+            AddTimer(respawnTime, () => {
                 PrintColoredAll($"{respawnTime} seconds has been passed since round start, turning off respawn.");
                 canRespawn = false;
             }, TimerFlags.STOP_ON_MAPCHANGE);
