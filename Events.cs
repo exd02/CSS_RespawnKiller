@@ -2,6 +2,7 @@ using CounterStrikeSharp.API;
 using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Core.Attributes.Registration;
 using CounterStrikeSharp.API.Modules.Timers;
+using CounterStrikeSharp.API.Modules.Commands;
 
 namespace RespawnKiller;
 
@@ -12,7 +13,17 @@ public partial class RespawnKiller
         RegisterEventHandler<EventPlayerDeath>(OnPlayerDeath,HookMode.Post);
 
         RegisterListener<Listeners.OnMapStart>(OnMapStart);
+        AddCommandListener("jointeam", OnJoinTeam);
     }
+
+    public HookResult OnJoinTeam(CCSPlayerController? player, CommandInfo commandInfo)
+	{
+        AddTimer(1.0f, () => {
+            CheckForRoundEndConditions();
+        });
+
+		return HookResult.Continue;
+	}
 
     private void OnMapStart(string mapName)
     {
@@ -74,6 +85,10 @@ public partial class RespawnKiller
     [GameEventHandler]
 	public HookResult OnPlayerDisconnect(EventPlayerDisconnect @event, GameEventInfo info)
 	{
+        AddTimer(1.0f, () => {
+            CheckForRoundEndConditions();
+        });
+        
         CCSPlayerController? player = @event.Userid;
 
         if (!player.IsValid)
