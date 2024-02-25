@@ -36,6 +36,6 @@
         <li>[x] RespawnKill Auto-Detection</li>
         <li>[x] Timer to disable Respawn</li>
         <li>[x] Create a .json list with mapnames and their info</li>
-        <li>[ ] Create a function that checks for the round end conditions</li>
+        <li>[ ] Create a function that checks for the round end conditions when a player die (end the round if the respawn time has ended and everyone is dead *except the replaybot*)</li>
     </ul>
 </section>
