@@ -28,12 +28,52 @@
             <tr>
                 <td><code>css_autodetectrespawnkill</code></td>
                 <td>&lt;0/1&gt;</td>
-                <td>Enable or disable auto detection for respawn kill.</td>
+                <td>Enable or disable auto detection for respawn kill. If this is enabled the <code>css_setmaprespawntime</code> value will be setted to 0.</td>
             </tr>
             <tr>
                 <td><code>css_setmaprespawntime</code></td>
                 <td>&lt;seconds&gt;</td>
-                <td>Set the respawn time in seconds for the map. 0 to ignore.</td>
+                <td>Set the respawn time in seconds for the map. 0 to ignore. If assign a time to respawn on the map, the <code>css_autodetectrespawnkill</code> will be turned off.</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h2>Config</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ConVar</th>
+                <th>DefaultValue</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>ChatPrefix</code></td>
+                <td>"[RespawnKill]"</td>
+                <td>String containing the prefix used to print chat and console commands.</td>
+            </tr>
+            <tr>
+                <td><code>TimeDeadScreen</code></td>
+                <td>0.5f</td>
+                <td>Time that takes to the player to be respawned after he's dead.</td>
+            </tr>
+            <tr>
+                <td><code>TimeBtwPlayerDeathsToDetectRespawnKill</code></td>
+                <td>2.5f</td>
+                <td>Works only when <code>css_autodetectrespawnkill</code> is turned on. It will check the time betweeen the player death, if the time is smaller than this variable, it will turn off respawn.</td>
+            </tr>
+            <tr>
+                <td><code>LetPluginDecideForRoundEndConditions</code></td>
+                <td>true</td>
+                <td>Let the plugin decide when the round is going to end. It checks if all the players are dead every player death/disconnect/changeteam, and if they are, start a new round.</td>
+            </tr>
+            <tr>
+                <td><code>DebugMessages</code></td>
+                <td>false</td>
+                <td>Display debug messages in console</td>
             </tr>
         </tbody>
     </table>
