@@ -81,7 +81,7 @@
 
 <section>
     <h2>Usage</h2>
-    <p>All the maps that doesn't have a config start by default with <code>css_autodetectrespawnkill 1</code> and <code>css_setmaprespawntime 0</code>. If you change the values you will write to a .json in <code>/csgo/cfg/RespawnKiller/MapSettings/{MapName}.json</code> with your config value. These values will be executed every time you enter this map.</p>
+    <p>All the maps that doesn't have a config start by default with <code>css_autodetectrespawnkill 1</code> and <code>css_setmaprespawntime 0</code>. If you change the values you will write to a .json in <code>/csgo/cfg/RespawnKiller/MapSettings/{MapName}.json</code> with your config value. These values will be executed every time this map is loaded.</p>
 </section>
 
 <section>
