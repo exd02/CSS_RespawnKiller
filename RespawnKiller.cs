@@ -1,10 +1,5 @@
 ﻿using CounterStrikeSharp.API;
 using CounterStrikeSharp.API.Core;
-using CounterStrikeSharp.API.Core.Attributes;
-using CounterStrikeSharp.API.Core.Attributes.Registration;
-using CounterStrikeSharp.API.Modules.Admin;
-using CounterStrikeSharp.API.Modules.Commands;
-using System.Text.Json.Serialization;
 
 namespace RespawnKiller;
 
@@ -19,11 +14,7 @@ public partial class RespawnKiller : BasePlugin, IPluginConfig<RespawnKillerConf
 
     public static bool canRespawn = false;
 
-    public static double respawnEndTime = 0.0;
-
-
     public static double[] lastDeathTime = new double[Server.MaxPlayers];
-
 
     public void OnConfigParsed(RespawnKillerConfig config)
 	{
@@ -33,7 +24,7 @@ public partial class RespawnKiller : BasePlugin, IPluginConfig<RespawnKillerConf
 
     public override void Load(bool hotReload)
     {
-        InitializeEventHandles();
+        InitializeEvents();
     }
 
 

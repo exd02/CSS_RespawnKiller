@@ -1,21 +1,32 @@
 using CounterStrikeSharp.API;
 using CounterStrikeSharp.API.Core;
-using CounterStrikeSharp.API.Core.Attributes;
 using CounterStrikeSharp.API.Core.Attributes.Registration;
-using CounterStrikeSharp.API.Modules.Admin;
-using CounterStrikeSharp.API.Modules.Commands;
 using CounterStrikeSharp.API.Modules.Timers;
-
 using CounterStrikeSharp.API.Modules.Memory;
-
 
 namespace RespawnKiller;
 
 public partial class RespawnKiller
 {
-	public void InitializeEventHandles()
+	public void InitializeEvents()
     {
         RegisterEventHandler<EventPlayerDeath>(OnPlayerDeath,HookMode.Post);
+
+        RegisterListener<Listeners.OnMapStart>(OnMapStart);
+    }
+
+    private void OnMapStart(string mapName)
+    {
+        Server.NextFrame(() =>
+        {
+            // TODO: exec commands for the map name here, add delay 1s to execute
+
+            // reset the last death time var
+            for (int i = 0; i < lastDeathTime.Length; i++)
+            {
+                lastDeathTime[i] = 0.0;
+            }
+        });
     }
 
     HookResult OnPlayerDeath(EventPlayerDeath @event, GameEventInfo info)
@@ -35,10 +46,10 @@ public partial class RespawnKiller
             Server.PrintToChatAll($"[RespawnKiller] Auto Respawn Kill Detection has been activated!");
             canRespawn = false;
         }
-        
+
         if (canRespawn)
         {
-            Server.PrintToConsole($"[RespawnKiller] Respawn active, spawning player \"{player.PlayerName}\" in {Config.TimeDeadScreen} seconds!");
+            Server.PrintToConsole($"[RespawnKiller] Respawn active, spawning player \"{ player.PlayerName }\" in {Config.TimeDeadScreen} seconds!");
             AddTimer(Config.TimeDeadScreen, () => { Respawn(player); }, TimerFlags.STOP_ON_MAPCHANGE);
         }
 
@@ -66,16 +77,15 @@ public partial class RespawnKiller
     [GameEventHandler(HookMode.Pre)]
     public HookResult OnEventRoundStartPre(EventRoundStart @event, GameEventInfo info)
     {
-        // Change the respawn variables back to normal
-        Server.PrintToConsole($"[RespawnKiller] Round Starting, turning on respawn...");
+        // Change the respawn variable back to on
         canRespawn = true;
 
         // Create a timer to set the respawn variable to false
-        if (Config.RespawnTime > 0)
+        if (Config.RespawnTime > 0.0)
         {
             // 'Timer' is an ambiguous reference between 'CounterStrikeSharp.API.Modules.Timers.Timer' and 'System.Threading.Timer'
             CounterStrikeSharp.API.Modules.Timers.Timer timerToDisableRespawn = AddTimer(Config.RespawnTime, () => {
-                Server.PrintToConsole($"[RespawnKiller] {Config.RespawnTime} seconds has passed since round Start. Turning Off Respawn...");
+                Server.PrintToConsole($"[RespawnKiller] {Config.RespawnTime} seconds has been passed since round Start. Turning Off Respawn...");
                 canRespawn = false;
             }, TimerFlags.STOP_ON_MAPCHANGE);
         }
@@ -83,8 +93,16 @@ public partial class RespawnKiller
         return HookResult.Continue;
     }
 
-    public void Respawn(CCSPlayerController player)
+    private void Respawn(CCSPlayerController? player)
     {
+        if (player == null) return;
+
+        if (player.PawnIsAlive)
+        {
+            Server.PrintToConsole($"[RespawnKiller] It's not possible to revive the player \"{ player.PlayerName }\", he's already alive.");
+            return;
+        }
+
         VirtualFunction.CreateVoid<CCSPlayerController>(player.Handle, GameData.GetOffset("CCSPlayerController_Respawn"))(player);
     }
 }
