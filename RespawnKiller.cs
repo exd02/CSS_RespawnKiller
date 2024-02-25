@@ -11,10 +11,16 @@ public partial class RespawnKiller : BasePlugin, IPluginConfig<RespawnKillerConf
     public override string ModuleDescription => "Let you set custom timers for respawning in each map or set it to auto-detect.";
 
     public RespawnKillerConfig Config { get; set; } = new();
+    public static bool bExecMapCfg = false;
 
     public static bool canRespawn = false;
 
-    public static double[] lastDeathTime = new double[Server.MaxPlayers];
+    public static bool autoDetectRespawnKill = true;
+    public static float respawnTime = 0.0f;
+
+    public static string gameDir = Server.GameDirectory;
+
+    public static double[] lastDeathTime = new double[64];
 
     public void OnConfigParsed(RespawnKillerConfig config)
 	{
@@ -24,5 +30,6 @@ public partial class RespawnKiller : BasePlugin, IPluginConfig<RespawnKillerConf
     public override void Load(bool hotReload)
     {
         InitializeEvents();
+        ValidateMapSettingsFolder();
     }
 }

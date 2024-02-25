@@ -1,8 +1,8 @@
-using CounterStrikeSharp.API;
 using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Core.Attributes.Registration;
 using CounterStrikeSharp.API.Modules.Admin;
 using CounterStrikeSharp.API.Modules.Commands;
+using CounterStrikeSharp.API;
 
 namespace RespawnKiller;
 
@@ -20,11 +20,8 @@ public partial class RespawnKiller
             return;
         }
 
-        Config.RespawnTime = respawnTime;
-
-        if (player != null)
-            PrintColored($"Respawn time in the current map ({ Server.MapName }) has been set to { Config.RespawnTime } seconds.", player);
-            
+        PrintColored($"Respawn Time for the map ({ Server.MapName }) has been set to { respawnTime } seconds..", player);
+        SaveMapConfig(autoDetectRespawnKill, respawnTime);
     }
 
     [ConsoleCommand("css_autodetectrespawnkill", "Enable/Disable Auto-Detection for respawn kill.")]
@@ -39,8 +36,9 @@ public partial class RespawnKiller
             return;
         }
 
-        Config.AutoDetection = autoDetectArg != 0;
+        bool bAutoDetect = autoDetectArg != 0;
 
-        PrintColored($"Respawn auto-detection for the map ({ Server.MapName }) has been set to { (Config.AutoDetection ? "true" : "false") }.", player);
+        PrintColored($"Auto-detection to respawn-kill for the map ({ Server.MapName }) has been set to { bAutoDetect }.", player);
+        SaveMapConfig(bAutoDetect, respawnTime);
     }
 }

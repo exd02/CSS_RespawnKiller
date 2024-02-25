@@ -2,7 +2,6 @@ using CounterStrikeSharp.API;
 using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Core.Attributes.Registration;
 using CounterStrikeSharp.API.Modules.Timers;
-using CounterStrikeSharp.API.Modules.Memory;
 
 namespace RespawnKiller;
 
@@ -17,19 +16,8 @@ public partial class RespawnKiller
 
     private void OnMapStart(string mapName)
     {
-        Server.NextFrame(() =>
-        {
-            // TODO: exec commands for the map name here, add delay 1s to execute
-            // example: acrophobia 60 seconds, auto detect 0
-
-            PrintColored($"MapStarted, cleaning lastDeathTime...");
-
-            // reset the last death time var
-            for (int i = 0; i < lastDeathTime.Length; i++)
-            {
-                lastDeathTime[i] = 0.0;
-            }
-        });
+        PrintColored($"MapStarted, cleaning variables...");
+        ResetVars(); 
     }
 
     HookResult OnPlayerDeath(EventPlayerDeath @event, GameEventInfo info)
@@ -44,7 +32,7 @@ public partial class RespawnKiller
         double timeAlive = thisDeathTime - lastDeathTime[player.Slot];
         lastDeathTime[player.Slot] = thisDeathTime;
 
-        if (timeAlive < 5 && Config.AutoDetection)
+        if (timeAlive < 5 && autoDetectRespawnKill)
         {
             PrintColoredAll($"Auto Respawn Kill Detection has been activated!");
             canRespawn = false;
@@ -82,15 +70,25 @@ public partial class RespawnKiller
     [GameEventHandler(HookMode.Pre)]
     public HookResult OnEventRoundStartPre(EventRoundStart @event, GameEventInfo info)
     {
+        // I tried to do this inside OnMapStart but that shit is crashing even with a timer
+        if (!bExecMapCfg)
+        {
+            if (File.Exists(GetCurrentMapConfigPath()))
+            {
+                LoadMapConfig();
+                bExecMapCfg = true;
+            }
+        }
+        
         // Change the respawn variable back to on
         canRespawn = true;
 
         // Create a timer to set the respawn variable to false
-        if (Config.RespawnTime > 0.0)
+        if (respawnTime > 0.0)
         {
             // 'Timer' is an ambiguous reference between 'CounterStrikeSharp.API.Modules.Timers.Timer' and 'System.Threading.Timer'
-            CounterStrikeSharp.API.Modules.Timers.Timer timerToDisableRespawn = AddTimer(Config.RespawnTime, () => {
-                PrintColoredAll($"{Config.RespawnTime} seconds has been passed since round start, turning off respawn.");
+            CounterStrikeSharp.API.Modules.Timers.Timer timerToDisableRespawn = AddTimer(respawnTime, () => {
+                PrintColoredAll($"{respawnTime} seconds has been passed since round start, turning off respawn.");
                 canRespawn = false;
             }, TimerFlags.STOP_ON_MAPCHANGE);
         }
@@ -99,3 +97,9 @@ public partial class RespawnKiller
     }
 
 }
+
+/*
+
+
+
+*/
