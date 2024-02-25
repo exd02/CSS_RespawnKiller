@@ -15,6 +15,7 @@
 </section>
 
 <section>
+    <p>If you change this commands you will write to a file <code>CurrentMapName.json</code> in the directory <code>csgo\cfg\RespawnKiller\MapSettings\MapName.json</code></p>
     <h2>Commands</h2>
     <table>
         <thead>
@@ -41,6 +42,7 @@
 
 <section>
     <h2>Config</h2>
+    <p>The config file path is <code>game\csgo\addons\counterstrikesharp\configs\plugins\RespawnKiller\RespawnKiller.json</code></p>
     <table>
         <thead>
             <tr>
