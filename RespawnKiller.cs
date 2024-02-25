@@ -30,7 +30,7 @@ public partial class RespawnKiller : BasePlugin, IPluginConfig<RespawnKillerConf
     
     public override void Load(bool hotReload)
     {
-        PrintColored($"Loading!");
+        PrintConDebug($"Loading");
         InitializeEvents();
 
         gameDir = Server.GameDirectory;

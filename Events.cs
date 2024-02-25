@@ -19,7 +19,7 @@ public partial class RespawnKiller
         Server.NextFrame(() =>
         {
             AddTimer(5.0f, () => {
-                PrintColored($"MapStarted, cleaning variables...");
+                PrintConDebug($"MapStarted, cleaning variables...");
                 ResetVars(); 
             });
         });
@@ -27,26 +27,43 @@ public partial class RespawnKiller
 
     HookResult OnPlayerDeath(EventPlayerDeath @event, GameEventInfo info)
     {
-        if (!canRespawn) return HookResult.Continue;
+        if (!canRespawn)
+        {
+            // the player is alive so we add a timer
+            AddTimer(1.0f, () => {
+                CheckForRoundEndConditions();
+            });
+            return HookResult.Continue;
+        }
 
         CCSPlayerController? player = @event.Userid;
 
         if (player == null) return HookResult.Continue;
         
         double thisDeathTime = Server.EngineTime;
-        double timeAlive = thisDeathTime - lastDeathTime[player.Slot];
+        double deltaDeath = thisDeathTime - lastDeathTime[player.Slot];
         lastDeathTime[player.Slot] = thisDeathTime;
-
-        if (timeAlive < 5 && autoDetectRespawnKill)
+        
+        if (deltaDeath < 0)
         {
-            PrintColoredAll($"Auto Respawn Kill Detection has been activated!");
+            PrintConDebug($"CRITICAL: Delta death is negative!!!");
+            return HookResult.Continue;
+        }
+
+        if (deltaDeath < Config.TimeBtwPlayerDeathsToDetectRespawnKill && autoDetectRespawnKill)
+        {
+            PrintColoredAll($"Auto-Detection has detected Respawn-Kill, disabling respawn!");
             canRespawn = false;
+
+            AddTimer(1.0f, () => {
+                CheckForRoundEndConditions();
+            });
+            
         }
 
         if (canRespawn)
         {
-            if (Config.DebugMessages)
-                PrintColored($"Respawn active, spawning player \"{ player.PlayerName }\" in {Config.TimeDeadScreen} seconds!", player);
+            PrintConDebug($"Respawn is still active, spawning player \"{ player.PlayerName }\" in {Config.TimeDeadScreen} seconds!");
             
             AddTimer(Config.TimeDeadScreen, () => { Respawn(player); }, TimerFlags.STOP_ON_MAPCHANGE);
         }
@@ -64,8 +81,8 @@ public partial class RespawnKiller
             return HookResult.Continue;
         }
 
-        if (Config.DebugMessages)
-            PrintColored($"Player \"{ player.PlayerName }\" (slot { player.Slot }) has disconnected, setting lastDeathTime[{ player.Slot }] = 0.");
+
+        PrintConDebug($"Player \"{ player.PlayerName }\" (slot { player.Slot }) has disconnected, setting lastDeathTime[{ player.Slot }] = 0.");
 
         lastDeathTime[player.Slot] = 0.0;
 
@@ -102,9 +119,3 @@ public partial class RespawnKiller
     }
 
 }
-
-/*
-
-
-
-*/

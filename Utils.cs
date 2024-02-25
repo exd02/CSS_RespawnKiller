@@ -1,6 +1,7 @@
 using CounterStrikeSharp.API;
 using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Modules.Memory;
+using CounterStrikeSharp.API.Modules.Utils;
 using System.Text.Json;
 
 namespace RespawnKiller;
@@ -13,27 +14,83 @@ public partial class RespawnKiller
 
         if (player.PawnIsAlive)
         {
-            if (Config.DebugMessages)
-                PrintColored($"It's not possible to revive the player \"{ player.PlayerName }\", he's already alive.", player);
-            
+            PrintConDebug($"It's not possible to revive the player \"{ player.PlayerName }\", he's already alive.");
             return;
         }
 
         VirtualFunction.CreateVoid<CCSPlayerController>(player.Handle, GameData.GetOffset("CCSPlayerController_Respawn"))(player);
     }
 
-    // print colored to the player in private chat. if player is null print only in server console
+    private void PrintConError(string message)
+    {
+        Server.PrintToConsole($"\u001b[36m{ Config.ChatPrefix } \u001B[31m[ERROR] \u001B[37m{ message }");
+    }
+
+    private void PrintConDebug(string message)
+    {
+        if (Config.DebugMessages)
+            Server.PrintToConsole($"\u001b[36m{ Config.ChatPrefix } [DEBUG] \u001b[37m{message}");
+    }
+
+    private void PrintColoredAll(string message)
+    {
+        Server.PrintToConsole($"\u001b[36m{ Config.ChatPrefix } \u001b[37m{message}");
+        Server.PrintToChatAll($" \x05 {Config.ChatPrefix} \x01 {message}");
+    }
+
     private void PrintColored(string message, CCSPlayerController? player = null)
     {
         // print to the server, if the command is whispered to a player print who is the player
-        Server.PrintToConsole($"{ Config.ChatPrefix }{(player != null ? $" [{player.PlayerName}] ->" : "")} { message }");
+        Server.PrintToConsole($"\u001b[36m{ Config.ChatPrefix } \u001b[37m{(player != null ? $" [{player.PlayerName}] ->" : "")} { message }");
 
         if (player == null)
         {
             return;
         }
         
-        player.PrintToChat($"\u0002{ Config.ChatPrefix }\u0001 { message }");
+        player.PrintToChat($" \x05 {Config.ChatPrefix} \x01  { message }");
+    }
+
+    private int CountAlivePlayers()
+    {
+        int count = 0;
+        foreach (CCSPlayerController? player in Utilities.GetPlayers())
+        {
+            if (player != null && player.IsValid && player.PawnIsAlive && !player.IsBot)
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    // count
+    private int CountInPlayingTeamPlayers()
+    {
+        int count = 0;
+        foreach (CCSPlayerController? player in Utilities.GetPlayers())
+        {
+            if (player != null && player.IsValid && player.TeamNum != (byte)CsTeam.None)
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private void CheckForRoundEndConditions()
+    {
+        if (!Config.LetPluginDecideForRoundEndConditions || canRespawn)
+            return;
+
+        int alive = CountAlivePlayers();
+        int playing = CountInPlayingTeamPlayers();
+
+        if (alive == 0 && playing > 0)
+        {
+            PrintConDebug($"RoundEndConditions Confirmed -> Alive = {alive}, Playing (CT/T): {playing}.");
+            Server.ExecuteCommand("mp_restartgame 1");
+        }
     }
 
     private void ResetVars()
@@ -47,14 +104,6 @@ public partial class RespawnKiller
         autoDetectRespawnKill = true;
         respawnTime = 0.0f;
     }
-    
-    private void PrintColoredAll(string message)
-    {
-        string coloredMsg = $"\u0002{ Config.ChatPrefix }\u0001 { message }";
-
-        Server.PrintToConsole(coloredMsg);
-        Server.PrintToChatAll(coloredMsg);
-    }
 
     public string GetCurrentMapConfigPath()
     {
@@ -67,7 +116,7 @@ public partial class RespawnKiller
 
         if (!Directory.Exists(path))
         {
-            PrintColored($"Could not find cfg directory in \"{path})\"");
+            PrintConError($"Could not find cfg directory in \"{path})\"");
             return;
         }
 
@@ -118,7 +167,7 @@ public partial class RespawnKiller
                 
                 if (mapSettings == null)
                 {
-                    PrintColored($"\"{path}\" was null.");
+                    PrintConError($"\"{path}\" was null.");
                     return;
                 }
                 
@@ -129,7 +178,7 @@ public partial class RespawnKiller
         }
         catch (Exception ex)
         {
-            PrintColored($"Could not load \"{path}\"! Error: {ex.Message}");
+            PrintConError($"Could not load \"{path}\"! Error: {ex.Message}");
         }
     }
 
@@ -144,7 +193,7 @@ public partial class RespawnKiller
             }
             catch (Exception ex)
             {
-                PrintColored($"Could not parse \"{path}\"! Error: {ex.Message}");
+                PrintConError($"Could not parse \"{path}\"! Error: {ex.Message}");
             }
         }
 
