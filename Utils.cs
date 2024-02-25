@@ -38,7 +38,7 @@ public partial class RespawnKiller
 
     private void ResetVars()
     {
-        for (int i = 0; i < maxPlayers; i++)
+        for (int i = 0; i < 64; i++)
         {
             lastDeathTime[i] = 0.0;
         }
