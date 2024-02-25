@@ -107,6 +107,9 @@ public partial class RespawnKiller
     [GameEventHandler(HookMode.Pre)]
     public HookResult OnEventRoundStartPre(EventRoundStart @event, GameEventInfo info)
     {
+        if (timerToDisableRespawn != null)
+            timerToDisableRespawn.Kill();
+
         // I tried to do this inside OnMapStart but that shit is crashing even with a timer
         if (!bExecMapCfg)
         {
@@ -123,7 +126,7 @@ public partial class RespawnKiller
         // Create a timer to set the respawn variable to false
         if (respawnTime > 0.0)
         {
-            AddTimer(respawnTime, () => {
+            timerToDisableRespawn = AddTimer(respawnTime, () => {
                 PrintColoredAll($"{respawnTime} seconds has been passed since round start, turning off respawn.");
                 canRespawn = false;
             }, TimerFlags.STOP_ON_MAPCHANGE);

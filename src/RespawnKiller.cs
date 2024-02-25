@@ -12,6 +12,7 @@ public partial class RespawnKiller : BasePlugin, IPluginConfig<RespawnKillerConf
 
     public RespawnKillerConfig Config { get; set; } = new();
     public static bool bExecMapCfg = false;
+    public static CounterStrikeSharp.API.Modules.Timers.Timer? timerToDisableRespawn;
 
     public static bool canRespawn = false;
 
