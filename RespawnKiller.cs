@@ -20,10 +20,8 @@ public partial class RespawnKiller : BasePlugin, IPluginConfig<RespawnKillerConf
 
     public static string gameDir = "";
 
-    public static int maxPlayers = 64;
-
     // Server.MaxPlayers is causing crash!
-    public static double[] lastDeathTime = new double[maxPlayers];
+    public static double[] lastDeathTime = new double[64];
 
     public void OnConfigParsed(RespawnKillerConfig config)
 	{
@@ -34,9 +32,9 @@ public partial class RespawnKiller : BasePlugin, IPluginConfig<RespawnKillerConf
     {
         PrintColored($"Loading!");
         InitializeEvents();
-        ValidateMapSettingsFolder();
 
         gameDir = Server.GameDirectory;
-        lastDeathTime = new double[maxPlayers];
+
+        ValidateMapSettingsFolder();
     }
 }
