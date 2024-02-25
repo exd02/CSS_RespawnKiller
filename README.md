@@ -2,7 +2,7 @@
 
 <section>
     <h2>Description</h2>
-    <p>This is a plugin for Minigame (mg) Course made with <a href="https://docs.cssharp.dev/index.html">CounterStrikeSharp</a>. This plugin can auto-detect when the RespawnKill is active in CS2 course maps. This plugin is a kind of port of <a href="https://forums.alliedmods.net/showthread.php?p=2374048">Franc1sco Auto-Respawn for CS:GO</a>. There's still too much to do, you should not use this plugin yet!</p>
+    <p>This is a plugin for Minigame (mg) Course made with <a href="https://docs.cssharp.dev/index.html">CounterStrikeSharp</a>. This plugin can auto-detect when the RespawnKill is active in CS2 course maps. This plugin is a kind of port of <a href="https://forums.alliedmods.net/showthread.php?p=2374048">Franc1sco Auto-Respawn for CS:GO</a>. This plugin needs test with multiple players, I've only tested in my LocalServer. If you test or use this leave me a feedback!</p>
 </section>
 
 <section>
@@ -16,6 +16,7 @@
 
 <section>
     <h2>Commands</h2>
+    <p>If you change this commands you will write to a file <code>CurrentMapName.json</code> in the directory <code>game\csgo\cfg\RespawnKiller\MapSettings\MapName.json</code></p>
     <table>
         <thead>
             <tr>
@@ -41,6 +42,7 @@
 
 <section>
     <h2>Config</h2>
+    <p>The config file path is <code>game\csgo\addons\counterstrikesharp\configs\plugins\RespawnKiller\RespawnKiller.json</code></p>
     <table>
         <thead>
             <tr>
@@ -93,6 +95,7 @@
         <li>[x] Create a function that checks for the round end conditions when a player die (end the round if the respawn time has ended and everyone is dead *except the replaybot*)</li>
         <li>[ ] Test in a live server with bunch of ppl to search for problems</li>
         <li>[ ] Go to every course map in the workshop and make a .json for them</li>
+        <li>[ ] Translation suport</li>
     </ul>
 </section>
 
