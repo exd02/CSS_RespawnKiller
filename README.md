@@ -9,7 +9,7 @@
     <h2>Dependencies</h2>
     <ul>
         <li><a href="https://cs2.poggu.me/metamod/installation/">MetaMod</a></li>
-        <li><a href="https://github.com/roflmuffin/CounterStrikeSharp/releases">CounterStrikeSharp</a>(tested with v172)</li>
+        <li><a href="https://github.com/roflmuffin/CounterStrikeSharp/releases">CounterStrikeSharp</a> (tested with v172)</li>
         <li><a href="https://github.com/DEAFPS/SharpTimer/tree/main">SharpTimer</a> (OPTIONAL for timer zone!)</li>
     </ul>
 </section>
@@ -33,10 +33,15 @@
             <tr>
                 <td><code>css_setmaprespawntime</code></td>
                 <td>&lt;seconds&gt;</td>
-                <td>Set the respawn time in seconds for the map.</td>
+                <td>Set the respawn time in seconds for the map. 0 to ignore.</td>
             </tr>
         </tbody>
     </table>
+</section>
+
+<section>
+    <h2>Usage</h2>
+    <p>All the maps that doesn't have a config start by default with <code>css_autodetectrespawnkill 1</code> and <code>css_setmaprespawntime 0</code>. If you change the values you will write to a .json in <code>/csgo/cfg/RespawnKiller/MapSettings/{MapName}.json</code> with your config value. These values will be executed every time you enter this map.</p>
 </section>
 
 <section>
