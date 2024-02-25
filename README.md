@@ -90,6 +90,7 @@
         <li>[x] RespawnKill Auto-Detection</li>
         <li>[x] Timer to disable Respawn</li>
         <li>[x] Create a .json list with mapnames and their info</li>
-        <li>[ ] Create a function that checks for the round end conditions when a player die (end the round if the respawn time has ended and everyone is dead *except the replaybot*)</li>
+        <li>[x] Create a function that checks for the round end conditions when a player die (end the round if the respawn time has ended and everyone is dead *except the replaybot*)</li>
+        <li>[ ] Test in a live server with bunch of ppl to search for problems</li>
     </ul>
 </section>
