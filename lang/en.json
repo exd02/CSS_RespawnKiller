@@ -1,0 +1,10 @@
+{
+    "rk.current.respawn.time.value": "{green}{0}{default} respawn time currently is {green}{1}{default} seconds. To change it use {green}setmaprespawntime <seconds>{default}!",
+    "rk.changed.respawn.time": "Respawn Time for the map {green}{0}{default} has been changed to {green}{1}{default} seconds!",
+    "rk.changed.auto.detection": "Respawn-Kill Auto-Detection in {green}{0}{default} has been changed to {green}{1}{default}!",
+    "rk.current.auto.detection.value": "{green}{0}{default} Respawn-Kill Auto-Detection currently is {green}{1}{default}. To change it use {green}autodetectrespawnkill <0/1>{default}!",
+    "rk.incorrect.arg": "{red}Wrong argument type!{default} Type the command name to see the correct use.",
+    "rk.auto.detection.disable.respawn": "Auto-Detection has detected Respawn-Kill, disabling respawn!",
+    "rk.timer.disable.respawn": "Map respawn has been disabled ({green}{0}{default} seconds)!",
+    "rk.restart.new.config": "New map configs writted, restarting round."
+}

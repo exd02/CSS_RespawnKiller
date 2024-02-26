@@ -63,7 +63,7 @@ public partial class RespawnKiller
 
         if (deltaDeath < Config.TimeBtwPlayerDeathsToDetectRespawnKill && autoDetectRespawnKill)
         {
-            PrintColoredAll($"Auto-Detection has detected Respawn-Kill, disabling respawn!");
+            PrintColoredAll(Localizer["rk.auto.detection.disable.respawn"]);
             canRespawn = false;
 
             AddTimer(1.0f, () => {
@@ -127,7 +127,7 @@ public partial class RespawnKiller
         if (respawnTime > 0.0)
         {
             timerToDisableRespawn = AddTimer(respawnTime, () => {
-                PrintColoredAll($"{respawnTime} seconds has been passed since round start, turning off respawn.");
+                PrintColoredAll(Localizer["rk.timer.disable.respawn", respawnTime]);
                 canRespawn = false;
             }, TimerFlags.STOP_ON_MAPCHANGE);
         }

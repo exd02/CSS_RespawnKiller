@@ -1,0 +1,10 @@
+{
+    "rk.current.respawn.time.value": "O tempo de respawn do mapa {green}{0}{default} atualmente é de {green}{1}{default} segundos. Para alterar use {green}setmaprespawntime <segundos>{default}!",
+    "rk.changed.respawn.time": "O tempode respawn do mapa {green}{0}{default} foi alterado para {green}{1}{default} segundos!",
+    "rk.changed.auto.detection": "A Auto-Detecção de Respawn-Kill no mapa {green}{0}{default} foi alterada para {green}{1}{default}!",
+    "rk.current.auto.detection.value": "A Auto-Detecção de Respawn-Kill no mapa {green}{0}{default} atualmente é {green}{1}{default}. Para alterar use {green}autodetectrespawnkill <0/1>{default}!",
+    "rk.incorrect.arg": "{red}Argumento Errado!{default} Digite o comando para ver suas informações.",
+    "rk.auto.detection.disable.respawn": "A Auto-Detecção detectou o Respawn-Kill, desativando o respawn!",
+    "rk.timer.disable.respawn": "O Respawn foi desativado ({green}{0}{default} segundos)!",
+    "rk.restart.new.config": "Novas configurações do mapa definidas, recomeçando a rodada."
+}

@@ -146,7 +146,7 @@ public partial class RespawnKiller
         string path = GetCurrentMapConfigPath();
         File.WriteAllText(path, newJson);
 
-        PrintColoredAll($"New map configs writted, restarting round.");
+        PrintColoredAll(Localizer["rk.restart.new.config"]); 
         Server.ExecuteCommand("mp_restartgame 1");
     }
 

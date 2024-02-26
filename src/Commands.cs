@@ -9,40 +9,50 @@ namespace RespawnKiller;
 public partial class RespawnKiller
 {
     [ConsoleCommand("css_setmaprespawntime", "Respawn time in this map")]
-    [CommandHelper(minArgs: 1, usage: "<seconds>", whoCanExecute: CommandUsage.CLIENT_AND_SERVER)]
     [RequiresPermissions("@css/cvar")]
     public void OnSetMapRespawnTimeCommand(CCSPlayerController? player, CommandInfo commandInfo)
     {
+        if (commandInfo.ArgCount == 1)
+		{
+            PrintColored(Localizer["rk.current.respawn.time.value", Server.MapName, respawnTime], player);
+            return;
+        }
+
         int respawnTimeArg;
         if(!int.TryParse(commandInfo.GetArg(1), out respawnTimeArg))
         {
-            PrintColored($"Incorrect Usage.", player);
+            PrintColored(Localizer["rk.incorrect.arg"], player);
             return;
         }
 
         respawnTime = respawnTimeArg;
 
-        PrintColored($"Respawn Time for the map ({ Server.MapName }) has been set to { respawnTime } seconds. Recommended turning \"autodetectrespawnkill 0\".", player);
-        
+        PrintColored(Localizer["rk.changed.respawn.time", Server.MapName, respawnTimeArg], player);
+
         SaveMapConfig(autoDetectRespawnKill, respawnTime);
     }
 
     [ConsoleCommand("css_autodetectrespawnkill", "Enable/Disable Auto-Detection for respawn kill.")]
-    [CommandHelper(minArgs: 1, usage: "<0/1>", whoCanExecute: CommandUsage.CLIENT_AND_SERVER)]
     [RequiresPermissions("@css/cvar")]
     public void OnSetMapAutoDetectCommand(CCSPlayerController? player, CommandInfo commandInfo)
     {
+        if (commandInfo.ArgCount == 1)
+		{
+            PrintColored(Localizer["rk.current.auto.detection.value", Server.MapName, autoDetectRespawnKill], player);
+            return;
+        }
+
         int autoDetectArg;
         if(!int.TryParse(commandInfo.GetArg(1), out autoDetectArg))
         {
-            PrintColored($"Incorrect Usage.", player);
+            PrintColored(Localizer["rk.incorrect.arg"], player);
             return;
         }
 
         autoDetectRespawnKill = autoDetectArg != 0;
 
-        PrintColored($"Auto-Detection to Respawn-Kill for the map ({ Server.MapName }) has been set to { autoDetectRespawnKill }. Recommended setting \"setmaprespawntime 0\".", player);
-        
+        PrintColored(Localizer["rk.changed.auto.detection", Server.MapName, autoDetectRespawnKill], player);
+
         SaveMapConfig(autoDetectRespawnKill, respawnTime);
     }
 }
