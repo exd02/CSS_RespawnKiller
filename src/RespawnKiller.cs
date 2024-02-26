@@ -5,10 +5,10 @@ namespace RespawnKiller;
 
 public partial class RespawnKiller : BasePlugin, IPluginConfig<RespawnKillerConfig>
 {
-    public override string ModuleName => "MG Respawn Killer";
+    public override string ModuleName => "RespawnKiller";
     public override string ModuleVersion => "1.0.2";
     public override string ModuleAuthor => "exd0001";
-    public override string ModuleDescription => "Let you set custom timers for respawning in each map or set it to auto-detect.";
+    public override string ModuleDescription => "Let you set custom timers for respawning or auto-detect respawn kill for MG-Course maps.";
 
     public RespawnKillerConfig Config { get; set; } = new();
     public static bool bExecMapCfg = false;
