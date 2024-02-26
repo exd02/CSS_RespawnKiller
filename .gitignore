@@ -1,4 +1,4 @@
-**/obj
-**/bin
-**/addons
+obj/
+bin/
+addons/
 *.rar
