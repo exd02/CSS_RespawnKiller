@@ -4,6 +4,9 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <CustomOutputPath>$(ProjectDir)addons/counterstrikesharp/plugins/RespawnKiller</CustomOutputPath>
+    <OutputPath>$(CustomOutputPath)</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,6 +15,9 @@
 
   <ItemGroup>
     <None Update="lang\**\*.*" CopyToOutputDirectory="PreserveNewest" />
-  </ItemGroup> 
+  </ItemGroup>
 
+  <Target Name="AfterBuild" AfterTargets="Build">
+    <Copy SourceFiles="$(OutputPath)\$(AssemblyName).dll" DestinationFolder="$(CustomOutputPath)" />
+  </Target>
 </Project>
