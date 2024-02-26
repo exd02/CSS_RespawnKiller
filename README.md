@@ -42,7 +42,7 @@
 
 <section>
     <h2>Config</h2>
-    <p>The config file path is <code>game\csgo\addons\counterstrikesharp\configs\plugins\RespawnKiller\RespawnKiller.json</code></p>
+    <p>The config file path is <code>game\csgo\addons\counterstrikesharp\configs\plugins\RespawnKiller\RespawnKiller.json</code>. This file will be created after the plugin is runned once.</p>
     <table>
         <thead>
             <tr>
@@ -54,7 +54,7 @@
         <tbody>
             <tr>
                 <td><code>ChatPrefix</code></td>
-                <td>"[RespawnKill]"</td>
+                <td>[RespawnKill]</td>
                 <td>String containing the prefix used to print chat and console commands.</td>
             </tr>
             <tr>
@@ -69,12 +69,12 @@
             </tr>
             <tr>
                 <td><code>LetPluginDecideForRoundEndConditions</code></td>
-                <td>true</td>
+                <td>True</td>
                 <td>Let the plugin decide when the round is going to end. It checks if all the players are dead every player death/disconnect/changeteam, and if they are, start a new round.</td>
             </tr>
             <tr>
                 <td><code>DebugMessages</code></td>
-                <td>false</td>
+                <td>False</td>
                 <td>Display debug messages in console</td>
             </tr>
         </tbody>
@@ -93,9 +93,9 @@
         <li>[x] Timer to disable Respawn</li>
         <li>[x] Create a .json list with mapnames and their info</li>
         <li>[x] Create a function that checks for the round end conditions when a player die (end the round if the respawn time has ended and everyone is dead *except the replaybot*)</li>
-        <li>[ ] Test in a live server with bunch of ppl to search for problems</li>
-        <li>[ ] Go to every course map in the workshop and make a .json for them</li>
         <li>[x] Translation suport</li>
+        <li>[ ] Test with more ppl (I've tested alone in my localserver)</li>
+        <li>[ ] Do more maps .json with their respawn information</li>
     </ul>
 </section>
 
