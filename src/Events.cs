@@ -110,7 +110,7 @@ public partial class RespawnKiller
         if (timerToDisableRespawn != null)
             timerToDisableRespawn.Kill();
 
-        // I tried to do this inside OnMapStart but that shit is crashing even with a timer
+        // It's better to exec necessary commands here than onMapStart, because we'll make sure that we overwrite other configs.
         if (!bExecMapCfg)
         {
             if (Config.LetPluginDecideForRoundEndConditions)
