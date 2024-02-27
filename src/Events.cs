@@ -113,14 +113,16 @@ public partial class RespawnKiller
         // I tried to do this inside OnMapStart but that shit is crashing even with a timer
         if (!bExecMapCfg)
         {
+            if (Config.LetPluginDecideForRoundEndConditions)
+                Server.ExecuteCommand("mp_ignore_round_win_conditions true");
+            
+            Server.ExecuteCommand("mp_respawn_on_death_t 0");
+            Server.ExecuteCommand("mp_respawn_on_death_ct 0");
+            
             if (File.Exists(GetCurrentMapConfigPath()))
             {
                 PrintConDebug("First round detected, changing server commands!");
-                if (Config.LetPluginDecideForRoundEndConditions)
-                    Server.ExecuteCommand("mp_ignore_round_win_conditions true");
                 
-                Server.ExecuteCommand("mp_respawn_on_death_t 0");
-                Server.ExecuteCommand("mp_respawn_on_death_ct 0");
                 LoadMapConfig();
                 bExecMapCfg = true;
             }
