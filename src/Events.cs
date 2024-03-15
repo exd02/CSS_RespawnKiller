@@ -3,6 +3,7 @@ using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Core.Attributes.Registration;
 using CounterStrikeSharp.API.Modules.Timers;
 using CounterStrikeSharp.API.Modules.Commands;
+using CounterStrikeSharp.API.Modules.Utils;
 
 namespace RespawnKiller;
 
@@ -18,7 +19,16 @@ public partial class RespawnKiller
 
     public HookResult OnJoinTeam(CCSPlayerController? player, CommandInfo commandInfo)
 	{
-        AddTimer(1.0f, () => {
+        if (player == null) return HookResult.Continue;
+
+        if (canRespawn)
+        {
+            AddTimer(0.5f, () => {
+                Respawn(player);
+            });
+        }
+
+        AddTimer(0.1f, () => {
             CheckForRoundEndConditions();
         });
 
