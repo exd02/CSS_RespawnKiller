@@ -29,12 +29,12 @@
             <tr>
                 <td><code>css_autodetectrespawnkill</code></td>
                 <td>&lt;0/1&gt;</td>
-                <td>Enable or disable auto detection for respawn kill. If this is enabled the <code>css_setmaprespawntime</code> value will be setted to 0.</td>
+                <td>Enable or disable auto detection for respawn kill. Enable this if the map don't have a respawn killer time.</td>
             </tr>
             <tr>
                 <td><code>css_setmaprespawntime</code></td>
                 <td>&lt;seconds&gt;</td>
-                <td>Set the respawn time in seconds for the map. 0 to ignore. If assign a time to respawn on the map, the <code>css_autodetectrespawnkill</code> will be turned off.</td>
+                <td>Set the respawn time in seconds for the map. 0 to ignore. If you're using this, it's recomended setting <code>css_autodetectrespawnkill</code> to 0.</td>
             </tr>
         </tbody>
     </table>
