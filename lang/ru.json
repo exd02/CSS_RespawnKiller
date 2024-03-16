@@ -1,0 +1,10 @@
+{
+    "rk.current.respawn.time.value": "{red}{0}{green} время возрождения в настоящее время составляет {red}{1}{green} секунд. Чтобы изменить его, используйте {red}setmaprespawntime <секунды>{green }!",
+    "rk.changed.respawn.time": "Время возрождения игрока {red}{0}{green} изменено на {red}{1}{green} секунд!",
+    "rk.changed.auto.detection": "Автоматическое обнаружение спавнкилла в {red}{0}{green} изменено на {red}{1}{green}!",
+    "rk.current.auto.detection.value": "{red}{0}{green} В настоящее время для автоматического обнаружения Спавнкилла используется {red}{1}{green}. Чтобы изменить его, используйте {red}autodectrespawnkill <0 /1>{по умолчанию}!",
+    "rk.incorrect.arg": "{red}Неправильный тип аргумента! {green} Введите имя команды, чтобы увидеть правильное использование.",
+    "rk.auto.detection.disable.respawn": "Автоматическое обнаружение обнаружило Спавнкилл, отключив возрождение!",
+    "rk.timer.disable.respawn": "Автовозраждение на  карте отключено {green} (спустя {red}{0}{green} секунд)!",
+    "rk.restart.new.config": "Записаны новые конфигурации карты, раунд перезапускается."
+}
